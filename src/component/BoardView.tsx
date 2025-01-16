@@ -4,29 +4,28 @@ import { BoardContext } from '../context/BoardContext'
 import axios from 'axios'
 import { BoardComments } from './BoardComments'
 
-export function BoardView() {
-  const { boardId, openBoard: setBoardId, setTitle } = useContext(BoardContext)
+export function BoardView({ boardId }: { boardId: number }) {
+  const { openBoard } = useContext(BoardContext)
   const [board, setBoard] = useState<BoardViewDTO | null>(null)
-  const { added, content, updated, userid } = board ?? {}
+  const { added, content, updated, userid, title } = board ?? {}
 
   useEffect(() => {
     axios.get(`/api/board/view/${boardId}`).then((response) => {
       const data = response.data
       const boardDTO = data.data
       setBoard(boardDTO)
-      setTitle(boardDTO.title)
     })
-  }, [boardId, setTitle])
+  }, [boardId])
 
   const closeBoard = useCallback(() => {
-    setBoardId(null)
-    setTitle('Board')
-  }, [setBoardId, setTitle])
+    openBoard(null)
+  }, [openBoard])
 
   return (
     <div className="container">
       <main className="mb-4">
         <div className="text-center py-2">
+          <div className="display-5 text-center py-4 my-0">{title}</div>
           <div className="text-body-secondary">
             by <span>{userid}</span>
           </div>

@@ -1,9 +1,7 @@
-import { useCallback, useContext, useEffect, useState } from 'react'
-import axios from 'axios'
-import { Pagination } from './Pagination'
+import { useCallback, useContext } from 'react'
 import { BoardContext } from '../context/BoardContext'
 
-function BoardListItem({
+export function BoardListItem({
   board: { added, bid, commentCount, title, userid },
 }: {
   board: BoardListViewDTO
@@ -31,55 +29,5 @@ function BoardListItem({
       <td>{userid}</td>
       <td>{added}</td>
     </tr>
-  )
-}
-
-export function BoardList({ page }: { page: number }) {
-  const [boardList, setBoardList] = useState<BoardListViewDTO[]>([])
-  const [{ start, end, last }, setPaginationComponent] = useState({
-    start: 1,
-    end: 1,
-    last: 1,
-  })
-  const [loading, setLoading] = useState(false)
-  const { setPage } = useContext(BoardContext)
-
-  useEffect(() => {
-    const query = `?page=${page}`
-    setLoading(true)
-    axios.get('/api/board/list' + query).then((response) => {
-      const data = response.data
-      setBoardList(data.dtoList)
-      setPaginationComponent(data)
-      setLoading(false)
-    })
-  }, [page])
-
-  return (
-    <div className="container">
-      <div className={loading ? 'loading' : ''}>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Writer</th>
-              <th scope="col">Created</th>
-            </tr>
-          </thead>
-          <tbody>
-            {boardList.map((b) => (
-              <BoardListItem board={b} key={b.bid} />
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <Pagination
-        start={start}
-        end={end}
-        current={page}
-        last={last}
-        onPage={setPage}
-      />
-    </div>
   )
 }

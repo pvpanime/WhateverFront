@@ -10,19 +10,23 @@ async function submitWrite(form: HTMLFormElement) {
 
 export function BoardEdit() {
   const form = useRef<HTMLFormElement>(null)
-  const { openEdit } = useContext(BoardContext)
-  const onSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if (form.current)
-      submitWrite(form.current)
-        .then(() => {
-          openEdit(false)
-        })
-        .catch((err) => {
-          window.alert(err)
-          console.error(err)
-        })
-  }, [])
+  const { openBoard } = useContext(BoardContext)
+  const onSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+      if (form.current)
+        submitWrite(form.current)
+          .then((response) => {
+            const boardId = response.data.boardId
+            openBoard(boardId, false)
+          })
+          .catch((err) => {
+            window.alert(err)
+            console.error(err)
+          })
+    },
+    [openBoard],
+  )
   return (
     <div className="container py-3">
       <form onSubmit={onSubmit} method="POST" ref={form}>
@@ -54,7 +58,19 @@ export function BoardEdit() {
             </div>
           </div>
           <div className="card-footer">
-            <input type="submit" className="btn btn-primary" value="Save" />
+            <div className="row">
+              <div className="col-auto">
+                <input type="submit" className="btn btn-primary" value="Save" />
+              </div>
+              <div className="col-auto">
+                <button
+                  onClick={() => openBoard(null, false)}
+                  className="btn btn-secondary"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </form>
