@@ -1,12 +1,18 @@
-import { useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { BoardContext } from '../context/BoardContext'
 import { Pagination } from './Pagination'
 import axios from 'axios'
 
 function BoardCommentView({ comment }: { comment: BoardCommentViewDTO }) {
   const { added, cid, content, userid } = comment
+  const onClick = useCallback(() => {
+    console.log(cid)
+  }, [cid])
   return (
-    <li className="list-group-item list-group-item-action comment">
+    <li
+      className="list-group-item list-group-item-action comment"
+      onClick={onClick}
+    >
       <span className="fw-bold text-info-emphasis pe-1">{userid}</span>
       <span>{content}</span>
       <span className="text-body-secondary fw-light">{added}</span>
