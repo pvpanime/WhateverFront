@@ -80,13 +80,6 @@ export function BoardList({ page }: { page: number }) {
         last={last}
         onPage={setPage}
       />
-      <div className="mt-4 text-center">
-        <a href={'/board/write'}>
-          <button type="button" className="btn btn-primary">
-            Write
-          </button>
-        </a>
-      </div>
     </div>
   )
 }

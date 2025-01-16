@@ -4,7 +4,7 @@ import { rangeInclusive } from '../utils'
 function PaginationDot() {
   return (
     <li className="page-item disabled">
-      <a className="page-link">&ctdot;</a>
+      <a className="page-link">⋯</a>
     </li>
   )
 }

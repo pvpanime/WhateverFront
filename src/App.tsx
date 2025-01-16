@@ -14,8 +14,8 @@ function App() {
     setEdit(false)
     setBoardId(i)
   }, [])
-  const openEdit = useCallback(() => {
-    setEdit(true)
+  const openEdit = useCallback((b: boolean = true) => {
+    setEdit(b)
     setBoardId(null)
   }, [])
   return (
@@ -33,6 +33,15 @@ function App() {
       {boardId != null ? <BoardView /> : null}
       {edit ? <BoardEdit /> : null}
       <BoardList page={page} />
+      <div className="my-4 text-center">
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => openEdit()}
+        >
+          Write
+        </button>
+      </div>
     </BoardContext.Provider>
   )
 }
