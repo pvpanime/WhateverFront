@@ -9,10 +9,12 @@ import { BoardView } from './BoardView'
 export default function BoardApp() {
   return (
     <Routes>
-      <Route path="/board" element={<BoardList />} />
-      <Route path="/board/view/:boardId" element={<BoardView />} />
-      <Route path="/board/write" element={<BoardEdit />} />
-      <Route path="/board/edit/:boardId" element={<BoardEdit />} />
+      <Route path="/board">
+        <Route index element={<BoardList />} />
+        <Route path="view/:boardId" element={<BoardView />} />
+        <Route path="write" element={<BoardEdit />} />
+        <Route path="edit/:boardId" element={<BoardEdit />} />
+      </Route>
     </Routes>
   )
 }

@@ -54,32 +54,30 @@ export function BoardList() {
   }, [page, size])
 
   return (
-    <>
-      <div className="container">
-        <h1 className="display-1 text-center py-4 my-0">Board</h1>
-        <div className={pending ? 'loading' : ''}>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Writer</th>
-                <th scope="col">Created</th>
-              </tr>
-            </thead>
-            <tbody>
-              {boardList.map((b) => (
-                <BoardListItem board={b} key={b.bid} />
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <Pagination start={start} end={end} last={last} pathname={'/board'} />
+    <div className="container">
+      <h1 className="display-1 text-center py-4 my-0">Board</h1>
+      <div className={pending ? 'loading' : ''}>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Writer</th>
+              <th scope="col">Created</th>
+            </tr>
+          </thead>
+          <tbody>
+            {boardList.map((b) => (
+              <BoardListItem board={b} key={b.bid} />
+            ))}
+          </tbody>
+        </table>
       </div>
+      <Pagination start={start} end={end} last={last} pathname={'/board'} />
       <div className="my-4 text-center">
         <Link className="btn btn-primary" to="/board/write">
           Write
         </Link>
       </div>
-    </>
+    </div>
   )
 }
