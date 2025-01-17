@@ -1,7 +1,7 @@
-import { useCallback, useContext, useEffect, useState } from 'react'
-import { BoardContext } from '../context/BoardContext'
+import { useCallback, useEffect, useState } from 'react'
 import { Pagination } from './Pagination'
 import axios from 'axios'
+import { useSearchParams } from 'react-router'
 
 function BoardCommentView({ comment }: { comment: BoardCommentViewDTO }) {
   const { added, cid, content, userid } = comment
@@ -20,9 +20,10 @@ function BoardCommentView({ comment }: { comment: BoardCommentViewDTO }) {
   )
 }
 
-export function BoardComments() {
-  const { boardId } = useContext(BoardContext)
-  const [commentPage, setCommentPage] = useState(1)
+export function BoardComments({ boardId }: { boardId: string }) {
+  // const { boardId } = useContext(BoardContext)
+  const [searchParams] = useSearchParams()
+  const commentPage = searchParams.get('page') ?? '1'
   const [comments, setComments] = useState<BoardCommentViewDTO[]>([])
   const [writeCommentValue, setWriteCommentValue] = useState('')
   const [{ start, end, last }, setPaginationComponent] = useState({
@@ -54,9 +55,8 @@ export function BoardComments() {
           <Pagination
             start={start}
             end={end}
-            current={commentPage}
             last={last}
-            onPage={setCommentPage}
+            pathname={'/board/view/' + boardId}
           />
         </div>
         <div className="card-body">

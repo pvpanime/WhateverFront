@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { useCallback, useContext, useRef } from 'react'
-import { BoardContext } from '../context/BoardContext'
+import { useCallback, useRef } from 'react'
+import { Link, useNavigate } from 'react-router'
 
 async function submitWrite(form: HTMLFormElement) {
   const fd = new FormData(form)
@@ -10,24 +10,22 @@ async function submitWrite(form: HTMLFormElement) {
 
 export function BoardEdit() {
   const form = useRef<HTMLFormElement>(null)
-  const { openBoard, notifyBoardPost } = useContext(BoardContext)
-  const onSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-      if (form.current)
-        submitWrite(form.current)
-          .then((response) => {
-            const boardId = response.data.boardId
-            openBoard(boardId, false)
-            notifyBoardPost()
-          })
-          .catch((err) => {
-            window.alert(err)
-            console.error(err)
-          })
-    },
-    [openBoard],
-  )
+  const navigate = useNavigate()
+  const onSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (form.current)
+      submitWrite(form.current)
+        .then((response) => {
+          const boardId = response.data.boardId
+          navigate(`/board/view/${boardId}`)
+        })
+        .catch((err) => {
+          window.alert(err)
+          console.error(err)
+        })
+    // why useNavigate is even dependant
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   return (
     <div className="container py-3">
       <form onSubmit={onSubmit} method="POST" ref={form}>
@@ -59,18 +57,17 @@ export function BoardEdit() {
             </div>
           </div>
           <div className="card-footer">
-            <div className="row">
-              <div className="col-auto">
-                <input type="submit" className="btn btn-primary" value="Save" />
-              </div>
-              <div className="col-auto">
-                <button
+            <div className="d-flex justify-content-between">
+              <input type="submit" className="btn btn-primary" value="Save" />
+              <Link className="btn btn-danger" to="/board">
+                Discard
+              </Link>
+              {/* <button
                   onClick={() => openBoard(null, false)}
                   className="btn btn-secondary"
                 >
                   Close
-                </button>
-              </div>
+                </button> */}
             </div>
           </div>
         </div>

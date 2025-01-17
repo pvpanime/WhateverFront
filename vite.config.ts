@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-const entries = ['index', 'login', 'signup', 'board']
+const entries = ['index', 'login', 'signup']
 
 const input = Object.fromEntries(entries.map((name) => [name, `${name}.html`]))
 

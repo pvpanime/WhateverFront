@@ -1,11 +1,11 @@
 import Markdown from 'marked-react'
-import { useCallback, useContext, useEffect, useState } from 'react'
-import { BoardContext } from '../context/BoardContext'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { BoardComments } from './BoardComments'
+import { Link, useParams } from 'react-router'
 
-export function BoardView({ boardId }: { boardId: number }) {
-  const { openBoard } = useContext(BoardContext)
+export function BoardView() {
+  const { boardId } = useParams()
   const [board, setBoard] = useState<BoardViewDTO | null>(null)
   const { added, content, updated, userid, title } = board ?? {}
 
@@ -16,10 +16,6 @@ export function BoardView({ boardId }: { boardId: number }) {
       setBoard(boardDTO)
     })
   }, [boardId])
-
-  const closeBoard = useCallback(() => {
-    openBoard(null)
-  }, [openBoard])
 
   return (
     <div className="container">
@@ -45,9 +41,9 @@ export function BoardView({ boardId }: { boardId: number }) {
       <nav className="mb-4">
         <div className="d-flex justify-content-between">
           <div>
-            <a href="#" className="btn btn-secondary" onClick={closeBoard}>
-              Close this board
-            </a>
+            <Link className="btn btn-secondary" to={'/board'}>
+              Back to List
+            </Link>
             {/* <a
               th:if="${owner}"
               th:href="@{'/board/edit/' + ${board.getBid()} + ${requestDTO.useQuery()}}"
@@ -61,7 +57,7 @@ export function BoardView({ boardId }: { boardId: number }) {
           </button> */}
         </div>
       </nav>
-      <BoardComments />
+      <BoardComments boardId={boardId} />
     </div>
   )
 }
