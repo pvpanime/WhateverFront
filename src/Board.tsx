@@ -12,6 +12,7 @@ function BoardApp() {
   const [edit, setEdit] = useState(false)
   const [page, setPage] = useState(1)
   const [boardList, setBoardList] = useState<BoardListViewDTO[]>([])
+  const [newBoardPosted, setNewBoardPosted] = useState(false)
   const [{ start, end, last }, setPaginationComponent] = useState({
     start: 1,
     end: 1,
@@ -38,11 +39,21 @@ function BoardApp() {
     fetchList(page)
   }, [page])
 
+  useEffect(() => {
+    if (newBoardPosted) {
+      fetchList(page)
+      setNewBoardPosted(false)
+    }
+  }, [page, newBoardPosted])
+
+  const notifyBoardPost = () => setNewBoardPosted(true)
+
   return (
     <BoardContext.Provider
       value={{
         boardId,
         openBoard,
+        notifyBoardPost,
       }}
     >
       <h1 className="display-1 text-center py-4 my-0">Board</h1>
@@ -80,7 +91,7 @@ function BoardApp() {
         <button
           type="button"
           className="btn btn-primary"
-          onClick={() => openBoard(null)}
+          onClick={() => openBoard(null, true)}
         >
           Write
         </button>

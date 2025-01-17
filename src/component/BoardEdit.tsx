@@ -10,7 +10,7 @@ async function submitWrite(form: HTMLFormElement) {
 
 export function BoardEdit() {
   const form = useRef<HTMLFormElement>(null)
-  const { openBoard } = useContext(BoardContext)
+  const { openBoard, notifyBoardPost } = useContext(BoardContext)
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
@@ -19,6 +19,7 @@ export function BoardEdit() {
           .then((response) => {
             const boardId = response.data.boardId
             openBoard(boardId, false)
+            notifyBoardPost()
           })
           .catch((err) => {
             window.alert(err)

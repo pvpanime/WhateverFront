@@ -1,15 +1,15 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+const entries = ['index', 'login', 'signup', 'board']
+
+const input = Object.fromEntries(entries.map((name) => [name, `${name}.html`]))
+
 // https://vite.dev/config/
 export default defineConfig({
   build: {
     rollupOptions: {
-      input: {
-        main: 'index.html',
-        login: 'login.html',
-        signup: 'signup.html',
-      },
+      input,
     },
   },
   plugins: [react()],
