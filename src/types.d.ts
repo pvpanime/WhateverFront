@@ -1,3 +1,20 @@
+declare interface PageResponseDTO<T> {
+  page: number
+  size: number
+  success: boolean
+
+  /** total count of board for corresponding request (NOT pages) */
+  total: number
+
+  start: number
+  end: number
+
+  /** the last page */
+  last: number
+
+  dtoList: T[]
+}
+
 declare interface BoardListViewDTO {
   bid: number
   title: string
@@ -22,4 +39,28 @@ declare interface BoardCommentViewDTO {
   userid: string
   added: string
   updated: string
+}
+
+declare interface ImageDTO {
+  id: string
+  name: string
+  ordinal: number
+  src: string
+  thumbnail: string
+}
+
+declare interface FoodViewDTO {
+  id: number
+  name: string
+  description: string
+  price: number
+  stock: number
+  opened: string // LocalDateTime
+  close: string // LocalDateTime
+  registrar: string
+  added: string // LocalDateTime
+  updated: string // LocalDateTime
+  reviewCount: number
+  avgRate: number
+  images: ImageDTO[]
 }
