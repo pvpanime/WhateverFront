@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
-import { usePage } from '../hooks/pagination'
-import axios from 'axios'
+import { usePageAndMore } from '../hooks/pagination'
+import { Pagination } from '../Pagination'
+import classnames from 'classnames'
 
 function FoodListItem({ food }: { food: FoodViewDTO }) {
   return (
@@ -23,13 +23,13 @@ function FoodListItem({ food }: { food: FoodViewDTO }) {
             )}
           </div>
           <h5 className="card-subtitle mb-2 text-body-secondary">
-            [[${food.price}]]원
+            {food.price}원
           </h5>
           <p className="card-text">{food.description}</p>
           {food.images && (
             <div className="row">
               {food.images.map((image) => (
-                <div className="col-auto">
+                <div key={image.id} className="col-auto">
                   <img src={image.thumbnail} alt={image.name} />
                 </div>
               ))}
@@ -53,31 +53,21 @@ function FoodListItem({ food }: { food: FoodViewDTO }) {
 }
 
 export function FoodList() {
-  const [page, size] = usePage()
-  const [foodList, setFoodList] = useState<FoodViewDTO[]>([])
-  const [pending, setPending] = useState(false)
-  useEffect(() => {
-    setPending(true)
-    axios
-      .get<PageResponseDTO<FoodViewDTO>>(
-        `/api/food/list?page=${page}&size=${size}`,
-      )
-      .then((response) => {
-        const data = response.data
-        setFoodList(data.dtoList)
-        setPending(false)
-      })
-      .catch((err) => {
-        console.error(err)
-        window.alert(err)
-      })
-  }, [page, size])
+  const { pending, start, end, last, list } =
+    usePageAndMore<FoodViewDTO>('/api/food/list')
   return (
     <div className="container">
       <div className="jumbotron display-1 text-center py-4">Foods!</div>
-      <div className="row my-4">
-        {!pending &&
-          foodList.map((food) => <FoodListItem food={food} key={food.id} />)}
+      <div className={classnames('row', 'my-4', { pending })}>
+        {list.map((food) => (
+          <FoodListItem food={food} key={food.id} />
+        ))}
+      </div>
+      <Pagination start={start} end={end} last={last} />
+      <div className="py-4 text-center" style={{ alignContent: 'center' }}>
+        <Link className="btn btn-primary" to="/food/register">
+          Register!
+        </Link>
       </div>
     </div>
   )

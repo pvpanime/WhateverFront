@@ -6,6 +6,8 @@ import { BoardEdit } from './board/BoardEdit'
 import { BoardList } from './board/BoardList'
 import { BoardView } from './board/BoardView'
 import { IndexApp } from './IndexApp'
+import { FoodList } from './food/FoodList'
+import { BucketList } from './bucket/BucketList'
 
 // export default
 function App() {
@@ -17,6 +19,12 @@ function App() {
         <Route path="view/:boardId" element={<BoardView />} />
         <Route path="write" element={<BoardEdit />} />
         <Route path="edit/:boardId" element={<BoardEdit />} />
+      </Route>
+      <Route path="/food">
+        <Route index element={<FoodList />} />
+      </Route>
+      <Route path="/bucket">
+        <Route index element={<BucketList />} />
       </Route>
     </Routes>
   )

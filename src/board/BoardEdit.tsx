@@ -50,7 +50,6 @@ export function BoardEdit() {
                 placeholder=""
                 id="contentTA"
                 name="content"
-                // th:text="${board.getContent()}"
                 style={{ height: '360px' }}
               ></textarea>
               <label htmlFor="contentTA">Content</label>
@@ -62,12 +61,6 @@ export function BoardEdit() {
               <Link className="btn btn-danger" to="/board">
                 Discard
               </Link>
-              {/* <button
-                  onClick={() => openBoard(null, false)}
-                  className="btn btn-secondary"
-                >
-                  Close
-                </button> */}
             </div>
           </div>
         </div>

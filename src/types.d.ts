@@ -1,3 +1,9 @@
+declare interface PaginationState {
+  start: number
+  end: number
+  last: number
+}
+
 declare interface PageResponseDTO<T> {
   page: number
   size: number
@@ -63,4 +69,16 @@ declare interface FoodViewDTO {
   reviewCount: number
   avgRate: number
   images: ImageDTO[]
+}
+
+declare interface BucketViewDTO {
+  id: number
+  title: string
+  description: string
+  dueTo: string // LocalDateTime
+  userid: string
+  status: number // integer
+  added: string // LocalDateTime
+  updated: string // LocalDateTime
+  badge?: string
 }

@@ -1,10 +1,10 @@
-import axios from 'axios'
-import { useCallback, useEffect, useState } from 'react'
-import { Link, useSearchParams } from 'react-router'
+import { Link } from 'react-router'
 
-import { Pagination } from './Pagination'
+import { Pagination } from '../Pagination'
 
 import styled from 'styled-components'
+import { usePageAndMore } from '../hooks/pagination'
+import classnames from 'classnames'
 
 function BoardListItem({
   board: { added, bid, commentCount, title, userid },
@@ -30,35 +30,12 @@ function BoardListItem({
 }
 
 function BoardListUno() {
-  const [searchParams] = useSearchParams()
-
-  const page = parseInt(searchParams.get('page') ?? '1')
-  const size = parseInt(searchParams.get('size') ?? '20')
-  const [boardList, setBoardList] = useState<BoardListViewDTO[]>([])
-  const [{ start, end, last }, setPaginationComponent] = useState({
-    start: 1,
-    end: 1,
-    last: 1,
-  })
-  const [pending, setPending] = useState(false)
-  const fetchList = useCallback(async (page: number, size: number) => {
-    const query = `?page=${page}&size=${size}`
-    setPending(true)
-    const response = await axios.get('/api/board/list' + query)
-    const data = response.data
-    setBoardList(data.dtoList)
-    setPaginationComponent(data)
-    setPending(false)
-  }, [])
-
-  useEffect(() => {
-    fetchList(page, size)
-  }, [page, size])
-
+  const { pending, start, end, last, list } =
+    usePageAndMore<BoardListViewDTO>('/api/board/list')
   return (
     <div className="container">
       <h1 className="display-1 text-center py-4 my-0">Board</h1>
-      <div className={pending ? 'loading' : ''}>
+      <div className={classnames({ pending })}>
         <table className="table">
           <thead>
             <tr>
@@ -68,14 +45,14 @@ function BoardListUno() {
             </tr>
           </thead>
           <tbody>
-            {boardList.map((b) => (
+            {list.map((b) => (
               <BoardListItem board={b} key={b.bid} />
             ))}
           </tbody>
         </table>
       </div>
       <Pagination start={start} end={end} last={last} pathname={'/board'} />
-      <div className="my-4 text-center">
+      <div className="py-4 text-center">
         <Link className="btn btn-primary" to="/board/write">
           Write
         </Link>

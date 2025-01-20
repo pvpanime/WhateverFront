@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Pagination } from './Pagination'
+import { Pagination } from '../Pagination'
 import axios from 'axios'
 import { useSearchParams } from 'react-router'
 

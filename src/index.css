@@ -9,3 +9,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.pending {
+  opacity: 0.5;
+}

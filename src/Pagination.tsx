@@ -1,7 +1,7 @@
 // import { useCallback } from 'react'
 import { useMemo } from 'react'
-import { rangeInclusive } from '../utils'
-import { Link, useSearchParams } from 'react-router'
+import { rangeInclusive } from './utils'
+import { Link, useLocation, useSearchParams } from 'react-router'
 
 function PaginationDot() {
   return (
@@ -52,10 +52,17 @@ interface PaginationComp {
   start: number
   end: number
   last: number
-  pathname: string
+  pathname?: string
 }
 
-export function Pagination({ start, end, last, pathname }: PaginationComp) {
+export function Pagination({
+  start,
+  end,
+  last,
+  pathname = undefined,
+}: PaginationComp) {
+  const location = useLocation()
+  if (!pathname) pathname = location.pathname
   return (
     <nav>
       <ul className="pagination justify-content-center">
