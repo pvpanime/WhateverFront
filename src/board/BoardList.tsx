@@ -4,6 +4,8 @@ import { Link, useSearchParams } from 'react-router'
 
 import { Pagination } from './Pagination'
 
+import styled from 'styled-components'
+
 function BoardListItem({
   board: { added, bid, commentCount, title, userid },
 }: {
@@ -27,7 +29,7 @@ function BoardListItem({
   )
 }
 
-export function BoardList() {
+function BoardListUno() {
   const [searchParams] = useSearchParams()
 
   const page = parseInt(searchParams.get('page') ?? '1')
@@ -81,3 +83,7 @@ export function BoardList() {
     </div>
   )
 }
+
+export const BoardList = styled(BoardListUno)`
+  display: block;
+`
