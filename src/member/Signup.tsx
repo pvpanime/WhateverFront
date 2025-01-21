@@ -1,14 +1,9 @@
-import '../styles/bootstrap.css'
+import { Container, TheLinkYouWant } from './WhatYouWant'
 
 export function Signup() {
   return (
-    <div
-      className="form-signin w-100 m-auto"
-      style={{
-        maxWidth: '330px',
-        padding: '1rem',
-      }}
-    >
+    <Container>
+      <title>Signup</title>
       <h2 className="pb-4">Sign Up</h2>
       <form method="POST" action="/login" onSubmit={(e) => e.preventDefault()}>
         <div className="form-floating mb-3">
@@ -61,13 +56,9 @@ export function Signup() {
         />
       </form>
       <div>Already have account?</div>
-      <a
-        style={{ display: 'block' }}
-        className="btn btn-outline-secondary py-2 "
-        href="/login"
-      >
+      <TheLinkYouWant className="btn btn-outline-secondary py-2" to="/login">
         Login
-      </a>
-    </div>
+      </TheLinkYouWant>
+    </Container>
   )
 }

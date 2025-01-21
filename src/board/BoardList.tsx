@@ -3,8 +3,9 @@ import { Link } from 'react-router'
 import { Pagination } from '../Pagination'
 
 import styled from 'styled-components'
-import { usePageAndMore } from '../hooks/pagination'
+import { usePage } from '../hooks/pages'
 import classnames from 'classnames'
+import { HeroTitle } from '../top/HeroTitle'
 
 function BoardListItem({
   board: { added, bid, commentCount, title, userid },
@@ -31,10 +32,10 @@ function BoardListItem({
 
 function BoardListUno() {
   const { pending, start, end, last, list } =
-    usePageAndMore<BoardListViewDTO>('/api/board/list')
+    usePage<BoardListViewDTO>('/api/board/list')
   return (
     <div className="container">
-      <h1 className="display-1 text-center py-4 my-0">Board</h1>
+      <HeroTitle>Board</HeroTitle>
       <div className={classnames({ pending })}>
         <table className="table">
           <thead>

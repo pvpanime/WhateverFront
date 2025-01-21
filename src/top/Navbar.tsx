@@ -1,12 +1,14 @@
-import { Link } from 'react-router'
+import { NavLink } from 'react-router'
+import { useAuth } from '../hooks/auth'
 
 export function Navbar() {
+  const [userPending, user] = useAuth()
   return (
     <nav className="navbar navbar-expand bg-body-tertiary sticky-top">
       <div className="container-fluid">
-        <Link className="navbar-brand mb-0 h1" to="/">
+        <NavLink className="navbar-brand mb-0 h1" to="/">
           MySite
-        </Link>
+        </NavLink>
         <button
           className="navbar-toggler"
           type="button"
@@ -24,23 +26,32 @@ export function Navbar() {
         >
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link" to="/board">
+              <NavLink className="nav-link" to="/board">
                 Board
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/bucket">
+              <NavLink className="nav-link" to="/bucket">
                 BucketList
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/food">
+              <NavLink className="nav-link" to="/food">
                 Food
-              </Link>
+              </NavLink>
             </li>
           </ul>
+          <div className="d-flex gap-1">
+            {!userPending &&
+              (user ? (
+                <button className="btn btn-outline-light">Logout</button>
+              ) : (
+                <a className="btn btn-outline-primary" href="/login">
+                  Login
+                </a>
+              ))}
+          </div>
           {/* <th:block sec:authorize="isAuthenticated()">
-        <div className="d-flex gap-1">
           <span className="text-body-secondary" th:text="${#authentication.principal.username}"></span>
           <form th:action="@{/logout}" method="POST">
             <input className="btn btn-outline-light" type="submit" value="Logout">

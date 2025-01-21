@@ -1,8 +1,9 @@
 import { Pagination } from '../Pagination'
-import { usePageAndMore } from '../hooks/pagination'
+import { usePage } from '../hooks/pages'
 import styled from 'styled-components'
 import classnames from 'classnames'
 import { Link } from 'react-router'
+import { HeroTitle } from '../top/HeroTitle'
 
 const z = {
   expired: 'text-bg-warning',
@@ -21,9 +22,10 @@ const Badge = styled(BadgeUnstyle)`
 
 export function BucketList() {
   const { pending, start, end, last, list } =
-    usePageAndMore<BucketViewDTO>('/api/bucket/list')
+    usePage<BucketViewDTO>('/api/bucket/list')
   return (
     <div className="container">
+      <HeroTitle>Bucket</HeroTitle>
       <table className={classnames('table', 'table-hover', { pending })}>
         <thead>
           <tr>

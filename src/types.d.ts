@@ -82,3 +82,12 @@ declare interface BucketViewDTO {
   updated: string // LocalDateTime
   badge?: string
 }
+
+declare type IdentifyResponse =
+  | {
+      type: 'anonymous'
+    }
+  | {
+      type: 'authenticated'
+      user: string
+    }

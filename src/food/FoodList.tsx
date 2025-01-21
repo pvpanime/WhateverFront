@@ -1,7 +1,8 @@
 import { Link } from 'react-router'
-import { usePageAndMore } from '../hooks/pagination'
+import { usePage } from '../hooks/pages'
 import { Pagination } from '../Pagination'
 import classnames from 'classnames'
+import { HeroTitle } from '../top/HeroTitle'
 
 function FoodListItem({ food }: { food: FoodViewDTO }) {
   return (
@@ -54,10 +55,10 @@ function FoodListItem({ food }: { food: FoodViewDTO }) {
 
 export function FoodList() {
   const { pending, start, end, last, list } =
-    usePageAndMore<FoodViewDTO>('/api/food/list')
+    usePage<FoodViewDTO>('/api/food/list')
   return (
     <div className="container">
-      <div className="jumbotron display-1 text-center py-4">Foods!</div>
+      <HeroTitle>Foods!</HeroTitle>
       <div className={classnames('row', 'my-4', { pending })}>
         {list.map((food) => (
           <FoodListItem food={food} key={food.id} />
