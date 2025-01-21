@@ -40,6 +40,11 @@ export function Navbar() {
                 Food
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/reddit">
+                Reddit
+              </NavLink>
+            </li>
           </ul>
           <div className="d-flex gap-1">
             {user ? (

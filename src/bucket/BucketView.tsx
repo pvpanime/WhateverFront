@@ -25,8 +25,12 @@ export function BucketView() {
           <Link className="btn btn-secondary" to={'/bucket'}>
             Back to List
           </Link>
-          <Link to={`/bucket/edit/${id}`}>Edit</Link>
-          <button className="btn btn-danger">Delete</button>
+          <div className="d-flex gap-4">
+            <Link className="btn btn-warning" to={`/bucket/edit/${id}`}>
+              Edit
+            </Link>
+            <button className="btn btn-danger">Delete</button>
+          </div>
         </div>
       </nav>
     </div>

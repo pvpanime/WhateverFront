@@ -58,10 +58,17 @@ export function useLocalAuth() {
     setJwtStrState(undefined)
     deleteJwt()
   }, [])
+
   const user = useMemo(() => {
     if (!jwt) return undefined
     const payloadEncoded = jwt.split('.')[1]
     return decodeOne(payloadEncoded)
   }, [jwt])
-  return { jwt, user, login, logout }
+
+  const username = useMemo(() => {
+    if (!jwt) return undefined
+    return user.sub
+  }, [jwt])
+
+  return { login, logout, jwt, user, username }
 }

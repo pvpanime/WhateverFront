@@ -9,6 +9,8 @@ import { IndexApp } from './IndexApp'
 import { FoodList } from './food/FoodList'
 import { BucketList } from './bucket/BucketList'
 import { BucketView } from './bucket/BucketView'
+import { BucketEdit } from './bucket/BucketEdit'
+import { Reddit } from './reddit/Reddit'
 
 // export default
 function App() {
@@ -27,7 +29,10 @@ function App() {
       <Route path="/bucket">
         <Route index element={<BucketList />} />
         <Route path="view/:id" element={<BucketView />} />
+        <Route path="write" element={<BucketEdit />} />
+        <Route path="edit/:id" element={<BucketEdit />} />
       </Route>
+      <Route path="/reddit" element={<Reddit />} />
     </Routes>
   )
 }
