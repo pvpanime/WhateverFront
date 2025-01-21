@@ -1,4 +1,4 @@
-import { defineConfig, SassPreprocessorOptions } from 'vite'
+import { defineConfig, ProxyOptions, SassPreprocessorOptions } from 'vite'
 import { resolve } from 'path'
 import react from '@vitejs/plugin-react'
 
@@ -15,6 +15,12 @@ const scss: SassPreprocessorOptions = {
   ],
 }
 
+const useSpringBoot: ProxyOptions = {
+  target: 'http://localhost:9500', // Spring Boot backend
+  changeOrigin: true,
+  secure: false,
+}
+
 // https://vite.dev/config/
 export default defineConfig({
   build: {
@@ -26,11 +32,9 @@ export default defineConfig({
   server: {
     port: 3000,
     proxy: {
-      '/api': {
-        target: 'http://localhost:9500', // Spring Boot backend
-        changeOrigin: true,
-        secure: false,
-      },
+      '/api': useSpringBoot,
+      '/i': useSpringBoot,
+      '/th': useSpringBoot,
     },
   },
   resolve: {

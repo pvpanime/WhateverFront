@@ -11,6 +11,7 @@ import { BucketList } from './bucket/BucketList'
 import { BucketView } from './bucket/BucketView'
 import { BucketEdit } from './bucket/BucketEdit'
 import { Reddit } from './reddit/Reddit'
+import { FoodEdit } from './food/FoodEdit'
 
 // export default
 function App() {
@@ -25,6 +26,9 @@ function App() {
       </Route>
       <Route path="/food">
         <Route index element={<FoodList />} />
+        {/* <Route path="view/:boardId" element={<FoodView />} /> */}
+        <Route path="write" element={<FoodEdit />} />
+        <Route path="edit/:id" element={<FoodEdit />} />
       </Route>
       <Route path="/bucket">
         <Route index element={<BucketList />} />
