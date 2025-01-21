@@ -1,9 +1,9 @@
 import { useCallback, useRef } from 'react'
 import { Container, FormFloating, TheLinkYouWant } from './WhatYouWant'
-import { useLocalAuthGood } from '../hooks/localAuth'
+import { useLocalAuth } from '../hooks/localAuth'
 
 export function Login() {
-  const [user, login] = useLocalAuthGood()
+  const { user, login } = useLocalAuth()
   const formEl = useRef<HTMLFormElement>()
   const onSubmit = useCallback(
     (e: React.FormEvent) => {

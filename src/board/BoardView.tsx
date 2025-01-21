@@ -1,13 +1,27 @@
 import Markdown from 'marked-react'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import axios from 'axios'
 import { BoardComments } from './BoardComments'
-import { Link, useParams } from 'react-router'
+import { Link, useNavigate, useParams } from 'react-router'
+import { useLocalAuth } from '../hooks/localAuth'
 
 export function BoardView() {
+  const navigate = useNavigate()
   const { boardId } = useParams()
-  const [board, setBoard] = useState<BoardViewDTO | null>(null)
-  const { added, content, updated, userid, title } = board ?? {}
+  const { user } = useLocalAuth()
+  const [board, setBoard] = useState<BoardViewDTO>(null)
+  const { bid, added, content, updated, userid, title } = board ?? {}
+
+  const confirmDelete = useCallback(() => {
+    if (
+      boardId != undefined &&
+      window.confirm('Are you sure you want to delete this board?')
+    ) {
+      axios.delete(`/api/board/delete/${bid}`).then(() => {
+        navigate('/board')
+      })
+    }
+  }, [boardId])
 
   useEffect(() => {
     axios.get(`/api/board/view/${boardId}`).then((response) => {
@@ -35,7 +49,7 @@ export function BoardView() {
           ) : null}
         </div>
         <div className="p-3 rounded card mb-3">
-          <Markdown value={content} openLinksInNewTab gfm></Markdown>
+          <Markdown value={content} openLinksInNewTab gfm breaks></Markdown>
         </div>
       </main>
       <nav className="mb-4">
@@ -44,17 +58,17 @@ export function BoardView() {
             <Link className="btn btn-secondary" to={'/board'}>
               Back to List
             </Link>
-            {/* <a
-              th:if="${owner}"
-              th:href="@{'/board/edit/' + ${board.getBid()} + ${requestDTO.useQuery()}}"
-              className="btn btn-warning"
-            >
-              Edit
-            </a> */}
           </div>
-          {/* <button th:if="${owner}" id="DeleteButton" className="btn btn-danger">
-            Delete
-          </button> */}
+          {userid && user?.sub === userid && (
+            <div className="d-flex gap-2">
+              <Link to={`/board/edit/${bid}`} className="btn btn-warning">
+                Edit
+              </Link>
+              <button className="btn btn-danger" onClick={confirmDelete}>
+                Delete
+              </button>
+            </div>
+          )}
         </div>
       </nav>
       <BoardComments boardId={boardId} />

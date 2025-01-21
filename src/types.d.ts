@@ -1,3 +1,9 @@
+declare interface ResponseDTO<T> {
+  success: boolean
+  message?: string
+  data?: T
+}
+
 declare interface PaginationState {
   start: number
   end: number

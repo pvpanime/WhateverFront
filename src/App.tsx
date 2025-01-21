@@ -8,6 +8,7 @@ import { BoardView } from './board/BoardView'
 import { IndexApp } from './IndexApp'
 import { FoodList } from './food/FoodList'
 import { BucketList } from './bucket/BucketList'
+import { BucketView } from './bucket/BucketView'
 
 // export default
 function App() {
@@ -25,6 +26,7 @@ function App() {
       </Route>
       <Route path="/bucket">
         <Route index element={<BucketList />} />
+        <Route path="view/:id" element={<BucketView />} />
       </Route>
     </Routes>
   )

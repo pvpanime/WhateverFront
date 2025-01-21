@@ -1,24 +1,9 @@
 import { Pagination } from '../Pagination'
 import { usePage } from '../hooks/pages'
-import styled from 'styled-components'
 import classnames from 'classnames'
 import { Link } from 'react-router'
 import { HeroTitle } from '../top/HeroTitle'
-
-const z = {
-  expired: 'text-bg-warning',
-  finished: 'text-bg-success',
-  dropped: 'text-bg-danger',
-} as const
-
-function BadgeUnstyle({ children }: { children: string }) {
-  const bsColorClass = children in z ? z[children] : 'text-bg-primary'
-  return <span className={classnames('badge', bsColorClass)}>{children}</span>
-}
-
-const Badge = styled(BadgeUnstyle)`
-  vertical-align: text-top;
-`
+import { Badge } from './Badge'
 
 export function BucketList() {
   const { pending, start, end, last, list } =

@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router'
-import { useLocalAuthGood } from '../hooks/localAuth'
+import { useLocalAuth } from '../hooks/localAuth'
 
 export function Navbar() {
-  const [user, , logout] = useLocalAuthGood()
+  const { user, logout } = useLocalAuth()
   return (
     <nav className="navbar navbar-expand bg-body-tertiary sticky-top">
       <div className="container-fluid">

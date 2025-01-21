@@ -31,9 +31,9 @@ function deleteJwt() {
   window.sessionStorage?.removeItem('jwt')
 }
 
-export function useLocalAuthGood() {
-  const [jwtStr, setJwtStrState] = useState(getJwtStr)
-  const loginAction = useCallback(
+export function useLocalAuth() {
+  const [jwt, setJwtStrState] = useState(getJwtStr)
+  const login = useCallback(
     (username: string, password: string, remember: boolean) => {
       axios
         .post('/api/user/login', { username, password })
@@ -54,14 +54,14 @@ export function useLocalAuthGood() {
     },
     [],
   )
-  const logoutAction = useCallback(() => {
+  const logout = useCallback(() => {
     setJwtStrState(undefined)
     deleteJwt()
   }, [])
-  const payload = useMemo(() => {
-    if (!jwtStr) return undefined
-    const payloadEncoded = jwtStr.split('.')[1]
+  const user = useMemo(() => {
+    if (!jwt) return undefined
+    const payloadEncoded = jwt.split('.')[1]
     return decodeOne(payloadEncoded)
-  }, [jwtStr])
-  return [payload, loginAction, logoutAction] as const
+  }, [jwt])
+  return { jwt, user, login, logout }
 }
