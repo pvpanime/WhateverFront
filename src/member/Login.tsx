@@ -1,39 +1,38 @@
-import { Container, TheLinkYouWant } from './WhatYouWant'
+import { useCallback, useRef } from 'react'
+import { Container, FormFloating, TheLinkYouWant } from './WhatYouWant'
+import { useLocalAuthGood } from '../hooks/localAuth'
 
 export function Login() {
-  return (
+  const [user, login] = useLocalAuthGood()
+  const formEl = useRef<HTMLFormElement>()
+  const onSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault()
+      const formData = new FormData(formEl.current)
+      login(
+        formData.get('username').toString(),
+        formData.get('password').toString(),
+        formData.get('rememberMe') === 'yes',
+      )
+    },
+    [formEl],
+  )
+  return user ? (
+    <script>{(location.href = '/')}</script>
+  ) : (
     <Container>
       <title>Login</title>
       <h2 className="pb-4">Login</h2>
-      <form method="POST" action="/login" onSubmit={(e) => e.preventDefault()}>
-        <div className="form-floating mb-3">
-          <input
-            autoComplete="off"
-            type="text"
-            className="form-control"
-            id="username"
-            name="username"
-            placeholder="Username"
-          />
-          <label htmlFor="username">Username</label>
-        </div>
-        <div className="form-floating">
-          <input
-            autoComplete="off"
-            type="password"
-            className="form-control"
-            id="password"
-            name="password"
-            placeholder="Password"
-          />
-          <label htmlFor="password">Password</label>
-        </div>
+      <form method="POST" action="/login" ref={formEl} onSubmit={onSubmit}>
+        <FormFloating name="username" label="Username" />
+        <FormFloating name="password" label="Password" type="password" />
         <div className="form-check text-start my-3">
           <input
             autoComplete="off"
             className="form-check-input"
             type="checkbox"
-            name="remember-me"
+            name="rememberMe"
+            value="yes"
             id="flexCheckDefault"
           />
           <label className="form-check-label" htmlFor="flexCheckDefault">

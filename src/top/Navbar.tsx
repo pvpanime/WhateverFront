@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router'
-import { useAuth } from '../hooks/auth'
+import { useLocalAuthGood } from '../hooks/localAuth'
 
 export function Navbar() {
-  const [userPending, user] = useAuth()
+  const [user, , logout] = useLocalAuthGood()
   return (
     <nav className="navbar navbar-expand bg-body-tertiary sticky-top">
       <div className="container-fluid">
@@ -42,25 +42,16 @@ export function Navbar() {
             </li>
           </ul>
           <div className="d-flex gap-1">
-            {!userPending &&
-              (user ? (
-                <button className="btn btn-outline-light">Logout</button>
-              ) : (
-                <a className="btn btn-outline-primary" href="/login">
-                  Login
-                </a>
-              ))}
+            {user ? (
+              <button onClick={logout} className="btn btn-outline-light">
+                Logout
+              </button>
+            ) : (
+              <a className="btn btn-outline-primary" href="/login">
+                Login
+              </a>
+            )}
           </div>
-          {/* <th:block sec:authorize="isAuthenticated()">
-          <span className="text-body-secondary" th:text="${#authentication.principal.username}"></span>
-          <form th:action="@{/logout}" method="POST">
-            <input className="btn btn-outline-light" type="submit" value="Logout">
-          </form>
-        </div>
-      </th:block>
-      <th:block sec:authorize="isAnonymous()">
-        <a className="btn btn-outline-primary" th:href="@{/login}">Login</a>
-      </th:block> */}
         </div>
       </div>
     </nav>

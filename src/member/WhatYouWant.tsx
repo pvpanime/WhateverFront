@@ -1,3 +1,4 @@
+import type { HTMLInputTypeAttribute } from 'react'
 import { useId } from 'react'
 import { Link } from 'react-router'
 import styled from 'styled-components'
@@ -13,22 +14,28 @@ export const Container = styled.div.attrs({
 `
 
 interface FormFloatingProps {
-  name: string
+  name?: string | undefined
   label: string
+  type?: HTMLInputTypeAttribute | undefined
 }
-export function FormFloating({ name, label }: FormFloatingProps) {
+export function FormFloating({
+  name,
+  label,
+  type = 'text',
+}: FormFloatingProps) {
   const id = useId()
+  const actualId = name ? name + '-' + id : id
   return (
     <div className="form-floating mb-3">
       <input
         autoComplete="off"
-        type="text"
+        type={type}
         className="form-control"
-        id={name + id}
+        id={actualId}
         name={name}
         placeholder={label}
       />
-      <label htmlFor={name + id}>{label}</label>
+      <label htmlFor={actualId}>{label}</label>
     </div>
   )
 }
