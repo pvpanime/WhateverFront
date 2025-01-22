@@ -45,6 +45,11 @@ export function Navbar() {
                 Reddit
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/news">
+                News
+              </NavLink>
+            </li>
           </ul>
           <div className="d-flex gap-1">
             {user ? (

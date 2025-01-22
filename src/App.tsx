@@ -12,6 +12,8 @@ import { BucketView } from './bucket/BucketView'
 import { BucketEdit } from './bucket/BucketEdit'
 import { Reddit } from './reddit/Reddit'
 import { FoodEdit } from './food/FoodEdit'
+import { FoodView } from './food/FoodView'
+import { Newsletter } from './newsletter/Newsletter'
 
 // export default
 function App() {
@@ -26,7 +28,7 @@ function App() {
       </Route>
       <Route path="/food">
         <Route index element={<FoodList />} />
-        {/* <Route path="view/:boardId" element={<FoodView />} /> */}
+        <Route path="view/:id" element={<FoodView />} />
         <Route path="write" element={<FoodEdit />} />
         <Route path="edit/:id" element={<FoodEdit />} />
       </Route>
@@ -37,6 +39,7 @@ function App() {
         <Route path="edit/:id" element={<BucketEdit />} />
       </Route>
       <Route path="/reddit" element={<Reddit />} />
+      <Route path="/news" element={<Newsletter />} />
     </Routes>
   )
 }

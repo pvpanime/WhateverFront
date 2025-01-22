@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import { Pagination } from '../Pagination'
 
 import styled from 'styled-components'
-import { usePage } from '../hooks/pages'
+import { usePage } from '../hooks/data'
 import classnames from 'classnames'
 import { HeroTitle } from '../top/HeroTitle'
 

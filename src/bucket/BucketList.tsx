@@ -1,5 +1,5 @@
 import { Pagination } from '../Pagination'
-import { usePage } from '../hooks/pages'
+import { usePage } from '../hooks/data'
 import classnames from 'classnames'
 import { Link } from 'react-router'
 import { HeroTitle } from '../top/HeroTitle'
