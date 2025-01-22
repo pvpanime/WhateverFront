@@ -14,6 +14,12 @@ export function IndexApp() {
         <Link className="list-group-item list-group-item-action" to={'/bucket'}>
           Bucket
         </Link>
+        <Link className="list-group-item list-group-item-action" to={'/reddit'}>
+          Reddit
+        </Link>
+        <Link className="list-group-item list-group-item-action" to={'/news'}>
+          Newsletter
+        </Link>
       </div>
     </div>
   )
