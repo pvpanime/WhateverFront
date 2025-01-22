@@ -15,6 +15,7 @@ import { FoodEdit } from './food/FoodEdit'
 import { FoodView } from './food/FoodView'
 import { Newsletter } from './newsletter/Newsletter'
 import { UserProfile } from './member/UserProfile'
+import { CheckboxView } from './Checkbox'
 
 // export default
 function App() {
@@ -41,6 +42,7 @@ function App() {
       </Route>
       <Route path="/reddit" element={<Reddit />} />
       <Route path="/news" element={<Newsletter />} />
+      <Route path="/checkbox" element={<CheckboxView />} />
       <Route path="/user/:username" element={<UserProfile />} />
     </Routes>
   )

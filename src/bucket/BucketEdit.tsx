@@ -1,6 +1,8 @@
 import { useParams } from 'react-router'
 import { useDTO } from '../hooks/data'
 
+function BucketStatusSelect({ initStatus, dispatchStatus }) {}
+
 export function BucketEdit() {
   const { id } = useParams()
   const [pending, bucket, error] = useDTO<BucketViewDTO>(
@@ -8,6 +10,8 @@ export function BucketEdit() {
     id != undefined,
   )
   const { title, status, dueTo, description } = bucket ?? {}
+  console.log({ pending, status })
+  console.log({ isZero: status === 0 })
   const viewTitle = id != undefined ? 'Edit' : 'Write'
   return (
     <div className="container">

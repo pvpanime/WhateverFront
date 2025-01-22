@@ -50,6 +50,11 @@ export function Navbar() {
                 News
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/checkbox">
+                Checkbox
+              </NavLink>
+            </li>
           </ul>
           <div className="d-flex gap-1">
             {user ? (
