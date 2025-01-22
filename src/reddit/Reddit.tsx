@@ -1,7 +1,6 @@
 import { CSSProperties, memo, useCallback, useReducer, useState } from 'react'
 import { rangeInclusive } from '../utils'
 import { produce } from 'immer'
-import styled from 'styled-components'
 
 import { List, ListRowRenderer } from 'react-virtualized'
 
@@ -80,9 +79,6 @@ function RedditListItem({
 const RedditItem = memo(RedditListItem)
 
 export function Reddit() {
-  // const [list, setList] = useState(() =>
-  //   [...rangeInclusive(1, 1000)].map((i) => `Reddit ${i}`),
-  // )
   const [state, dispatch] = useReducer(
     reducer,
     [...rangeInclusive(1, 1000)].map((i) => `Reddit ${i}`),
@@ -115,7 +111,6 @@ export function Reddit() {
       onContextMenu={(e) => e.preventDefault()}
     >
       <List
-        className="list-group"
         rowCount={state.length}
         rowRenderer={rowRenderer}
         rowHeight={50}
@@ -123,11 +118,6 @@ export function Reddit() {
         height={700}
         style={{ display: 'block!important' }}
       />
-      {/* <ul className="list-group">
-        {state.map((s, i) => (
-          <RedditItem key={s} data={s} index={i} dispatch={dispatch} />
-        ))}
-      </ul> */}
     </div>
   )
 }

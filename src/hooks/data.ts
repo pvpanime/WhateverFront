@@ -29,8 +29,8 @@ export function useData<T>(url: string, enable: boolean = true) {
         })
     } else {
       setPending(false)
-      setData(undefined)
       setError(undefined)
+      setData(undefined)
     }
   }, [url, enable])
   return [pending, data, error, response] as const
