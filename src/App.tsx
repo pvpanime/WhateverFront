@@ -14,6 +14,7 @@ import { Reddit } from './reddit/Reddit'
 import { FoodEdit } from './food/FoodEdit'
 import { FoodView } from './food/FoodView'
 import { Newsletter } from './newsletter/Newsletter'
+import { UserProfile } from './member/UserProfile'
 
 // export default
 function App() {
@@ -40,6 +41,7 @@ function App() {
       </Route>
       <Route path="/reddit" element={<Reddit />} />
       <Route path="/news" element={<Newsletter />} />
+      <Route path="/user/:username" element={<UserProfile />} />
     </Routes>
   )
 }
