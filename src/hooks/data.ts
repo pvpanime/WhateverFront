@@ -73,10 +73,37 @@ interface UsePageParams {
   defaultSize?: number
 }
 
+interface PagingState<DT> {
+  /** API 요청이 진행 중인지 여부 */
+  pending: boolean
+
+  /** 현재 페이지 */
+  page: string
+
+  /** 한 페이지당 보여줄 리스트 아이템 수 */
+  size: string
+
+  /** Pagination 윈도우에서 왼쪽 번호 */
+  start: number
+
+  /** Pagination 윈도우에서 오른쪽 번호 */
+  end: number
+
+  /** 마지막 페이지 */
+  last: number
+
+  /** 아이템 배열 */
+  list: DT[]
+
+  /** 페이지를 다시 가져오도록 한다. */
+  refresh: () => void
+}
+
+/** 페이지를 가져오는 API */
 export function usePage<DT>(
   requestURI: string,
   { defaultPage = 1, defaultSize = 20 }: UsePageParams = {},
-) {
+): PagingState<DT> {
   const [searchParams] = useSearchParams()
   const [pending, setPending] = useState(false)
   const [{ start, end, last }, setPaginationComponent] = useState({
@@ -92,7 +119,9 @@ export function usePage<DT>(
 
   const doFetch = useCallback(() => {
     axios
-      .get<PageResponseDTO<DT>>(`${requestURI}?page=${page}&size=${size}`)
+      .get<PageResponseDTO<DT>>(`${requestURI}`, {
+        params: { page, size },
+      })
       .then((response) => {
         const {
           data: { dtoList, start, end, last },

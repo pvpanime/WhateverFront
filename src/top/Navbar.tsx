@@ -32,7 +32,7 @@ export function Navbar() {
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/bucket">
-                BucketList
+                Bucket
               </NavLink>
             </li>
             <li className="nav-item">
