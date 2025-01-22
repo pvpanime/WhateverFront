@@ -3,6 +3,7 @@ import { rangeInclusive } from '../utils'
 import { produce } from 'immer'
 
 import { List, ListRowRenderer } from 'react-virtualized'
+import { HeroTitle } from '../top/HeroTitle'
 
 type RedditAction =
   | {
@@ -110,6 +111,7 @@ export function Reddit() {
       onClick={onClick}
       onContextMenu={(e) => e.preventDefault()}
     >
+      <HeroTitle>Reddit</HeroTitle>
       <List
         rowCount={state.length}
         rowRenderer={rowRenderer}
